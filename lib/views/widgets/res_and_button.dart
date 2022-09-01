@@ -1,3 +1,4 @@
+import 'package:architecture/models/counter.dart';
 import 'package:architecture/view_models/changenotifier.dart';
 import 'package:architecture/views/widgets/minustext.dart';
 import 'package:architecture/views/widgets/plustext.dart';
@@ -15,42 +16,42 @@ class Increment extends StatefulWidget {
 class _IncrementState extends State<Increment> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<MyModel>(builder: (context, myModel, child) {
-      return Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Text(
-            '${myModel.counter}',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          Sizedbox30(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    myModel.decrementCounter();
-                    print(myModel.counter);
-                  });
-                },
-                tooltip: 'Increment',
-                child: const Minus(),
-              ),
-              FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    myModel.incrementCounter();
-                    print(myModel.counter);
-                  });
-                },
-                tooltip: 'Increment',
-                child: const Plus(),
-              ),
-            ],
-          ),
-        ],
-      );
-    });
+    final cRead = context.read<MyModel>();
+    final cWatch = context.watch<Counter>();
+
+    //final counterRead = Provider.of<MyModel>(context, listen: false);
+    //final counterWatch = Provider.of<MyModel>(context, listen: true);
+
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          '${cWatch.counter}',
+          style: Theme.of(context).textTheme.headline4,
+        ),
+        Sizedbox30(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FloatingActionButton(
+              heroTag: '1',
+              onPressed: () {
+                cRead.decrementCounter();
+              },
+              tooltip: 'Increment',
+              child: const Minus(),
+            ),
+            FloatingActionButton(
+              heroTag: '2',
+              onPressed: () {
+                cRead.incrementCounter();
+              },
+              tooltip: 'Increment',
+              child: const Plus(),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

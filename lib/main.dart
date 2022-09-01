@@ -1,15 +1,22 @@
 // @dart=2.9
 
 import 'package:architecture/view_models/changenotifier.dart';
+import 'package:architecture/views/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Changes(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Changes();
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
   }
 }

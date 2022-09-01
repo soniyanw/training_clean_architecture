@@ -1,41 +1,37 @@
-import 'package:architecture/models/decrementmethod.dart';
-import 'package:architecture/models/incrementmethod.dart';
-import 'package:architecture/views/homepage.dart';
+import 'package:architecture/models/counter.dart';
+import 'package:architecture/services/local_services.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:state_notifier/state_notifier.dart';
 
-class Changes extends StatefulWidget {
-  const Changes({Key? key}) : super(key: key);
-
-  @override
-  State<Changes> createState() => _ChangesState();
-}
-
-class _ChangesState extends State<Changes> {
+class Changes extends StatelessWidget {
+  const Changes({Key? key, required this.child}) : super(key: key);
+  final Widget child;
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MyModel>(
-      create: (context) => MyModel(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      ),
+    return StateNotifierProvider<MyModel, Counter>(
+      create: (c) => MyModel(),
+      child: child,
     );
   }
 }
 
-class MyModel with ChangeNotifier {
-  int counter = 1;
+class MyModel extends StateNotifier<Counter> with LocatorMixin {
+  MyModel() : super(Counter());
+
   void incrementCounter() {
-    counter = increment(counter);
+    state = state.rebuild((p0) => p0.counter = (state.counter ?? 0) + 1);
+    print(state);
+    set(state.counter ?? 0);
   }
 
   void decrementCounter() {
-    counter = decrement(counter);
+    state = state.rebuild((p0) => p0.counter = (state.counter ?? 0) - 1);
+    print(state);
+    set(state.counter ?? 0);
   }
 
-  notifyListeners();
+  void fromSharedPref(int value) {
+    state = state.rebuild((p0) => p0.counter = value);
+  }
 }

@@ -29,7 +29,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^4.0.1
+  provider: ^6.0.3
+  built_value: ^8.1.1
+  built_collection:
+  state_notifier: ^0.7.2+1
+  flutter_state_notifier: ^0.7.1
+  shared_preferences: ^2.0.15
+
+
 
 
 
@@ -40,6 +47,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  built_value_generator:
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -1,29 +1,69 @@
-import 'package:architecture/views/widgets/res_and_button.dart';
+import 'package:architecture/services/local_services.dart';
+import 'package:architecture/view_models/changenotifier.dart';
+import 'package:architecture/views/changing_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void getcounter() async {
+    context.read<MyModel>().fromSharedPref(await get());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Flutter Demo Home Page'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            MaterialButton(
+              onPressed: () {
+                getcounter();
+              },
+              child: Text("Do you want to retain old value?"),
             ),
-            Increment()
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MaterialButton(
+                  onPressed: () {
+                    getcounter();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => SecondPage()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                  color: Colors.blue,
+                  child: Text(
+                    "Yes",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => SecondPage()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                  color: Colors.blue,
+                  child: Text(
+                    "No",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
