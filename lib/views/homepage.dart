@@ -11,7 +11,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void getcounter() async {
-    context.read<MyModel>().fromSharedPref(await get());
+    // context.read<MyModel>().fromSharedPref(await SharedPreference().get());
+    context
+        .read<MyModel>()
+        .fromSecStore(int.parse(await SecuredStorage().get() ?? '0'));
   }
 
   @override
@@ -24,12 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MaterialButton(
-              onPressed: () {
-                getcounter();
-              },
-              child: Text("Do you want to retain old value?"),
-            ),
+            Text("Do you want to retain old value?"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

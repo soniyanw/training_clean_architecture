@@ -22,16 +22,22 @@ class MyModel extends StateNotifier<Counter> with LocatorMixin {
   void incrementCounter() {
     state = state.rebuild((p0) => p0.counter = (state.counter ?? 0) + 1);
     print(state);
-    set(state.counter ?? 0);
+    //SharedPreference().set(state.counter ?? 0);
+    SecuredStorage().set(state.counter ?? 0);
   }
 
   void decrementCounter() {
     state = state.rebuild((p0) => p0.counter = (state.counter ?? 0) - 1);
     print(state);
-    set(state.counter ?? 0);
+    //SharedPreference().set(state.counter ?? 0);
+    SecuredStorage().set(state.counter ?? 0);
   }
 
   void fromSharedPref(int value) {
+    state = state.rebuild((p0) => p0.counter = value);
+  }
+
+  void fromSecStore(int value) {
     state = state.rebuild((p0) => p0.counter = value);
   }
 }
