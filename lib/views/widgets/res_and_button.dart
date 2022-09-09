@@ -27,6 +27,7 @@ class _IncrementState extends State<Increment> {
       children: [
         Text(
           '${cWatch.counter}',
+          key: const Key('counter'),
           style: Theme.of(context).textTheme.headline4,
         ),
         Sizedbox30(),
@@ -35,14 +36,16 @@ class _IncrementState extends State<Increment> {
           children: [
             FloatingActionButton(
               heroTag: '1',
+              key: const Key('Decrement'),
               onPressed: () {
                 cRead.decrementCounter();
               },
-              tooltip: 'Increment',
+              tooltip: 'Decrement',
               child: const Minus(),
             ),
             FloatingActionButton(
               heroTag: '2',
+              key: const Key('Increment'),
               onPressed: () {
                 cRead.incrementCounter();
               },

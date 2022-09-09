@@ -36,6 +36,10 @@ dependencies:
   flutter_state_notifier: ^0.7.1
   shared_preferences: ^2.0.15
   flutter_secure_storage: ^6.0.0
+  integration_test:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
 
 
 

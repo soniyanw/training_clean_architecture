@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MaterialButton(
+                ElevatedButton(
                   onPressed: () {
                     getcounter();
                     Navigator.pushAndRemoveUntil(
@@ -40,13 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       (Route<dynamic> route) => false,
                     );
                   },
-                  color: Colors.blue,
                   child: Text(
                     "Yes",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
                 MaterialButton(
+                  key: const ValueKey('No'),
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                       context,
